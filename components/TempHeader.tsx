@@ -141,40 +141,38 @@ const Header: React.FC<HeaderProps> = ({
 
   const PathCurrentPageAndNavigation = () => {
     return (
-     <section className="w-screen flex pr-14 justify-center">
-       <section
-        className="relative flex w-full max-w-7xl
-       justify-center min-h-40 border-red-400  border-2 mb-4 mt-8"
-      >
-        <div className="absolute -top-[20%] h-14 w-8/12">
-          <Navigation />
-        </div>
-
-        <div id="main_header" className="bg-[#65507E] w-full text-white min-h-40 px-4">
-          <h1 className="text-4xl font-bold pt-8">Home</h1>
-          <div className="bg-[#371C59] absolute w-full bottom-0 px-6 right-0 py-2 flex justify-end space-x-4">
-            <Link href="/" className="hover:text-[#EA580C]">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href={pathname} className="hover:text-[#EA580C]">
-              {pathname.split("/").pop() || "Home"}
-            </Link>
+      <section className="w-screen bg-[#65507E] flex mt-10 pr-14 justify-center">
+        <section
+          className="relative flex w-full max-w-7xl
+       justify-center min-h-40   mb-4 mt-8"
+        >
+          <div className="absolute -top-[34%] h-14 w-8/12">
+            <Navigation />
           </div>
-        </div>
+
+          <div id="main_header" className=" w-full text-white min-h-40 px-4">
+            <h1 className="text-4xl font-bold pt-8">Home</h1>
+            <div className="bg-[#371C59] absolute w-full bottom-0 px-6 right-0 py-2 flex justify-end space-x-4">
+              <Link href="/" className="hover:text-[#EA580C]">
+                Home
+              </Link>
+              <span>/</span>
+              <Link href={pathname} className="hover:text-[#EA580C]">
+                {pathname.split("/").pop() || "Home"}
+              </Link>
+            </div>
+          </div>
+        </section>
       </section>
-     </section>
     );
   };
 
   return (
-    <header className="">
-      <div className="">
-        <NewsLetter />
-        <LogoAndInfo />
-        <PathCurrentPageAndNavigation />
-      </div>
-    </header>
+    <div className="">
+      <NewsLetter />
+      <LogoAndInfo />
+      <PathCurrentPageAndNavigation />
+    </div>
   );
 };
 

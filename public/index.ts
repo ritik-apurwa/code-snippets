@@ -9,7 +9,7 @@ import linkedinsvg from "./websvgs/linkdin.svg";
 import twittersvg from "./websvgs/twitter.svg";
 import thumbsabb from "./websvgs/thumbsapp.svg";
 import penguin from "./websvgs/pengwin.svg";
-
+import bgsvg from "./websvgs/bg-svg.svg"
 export {
   clocksvg,
   callsvg,
@@ -22,4 +22,5 @@ export {
   thumbsabb,
   twittersvg,
   whatsappsvg,
+  bgsvg
 };
