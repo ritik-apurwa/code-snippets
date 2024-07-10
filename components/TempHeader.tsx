@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
 
           <div id="social_icons" className="flex space-x-4">
             {socialIcons.map(({ icon, title, id }) => (
-              <div className="size-10 overflow-hidden">
+              <div key={id} className="size-10 overflow-hidden">
                 <Image
                   key={id}
                   src={icon}

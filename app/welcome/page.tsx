@@ -40,7 +40,7 @@ const WelcomePage = () => {
         )}
         <h1 className="text-2xl font-bold">Welcome, {user.firstName}!</h1>
       </div>
-      <p className="mb-2">We're glad to see you here.</p>
+      <p className="mb-2">We are glad to see you here.</p>
       <p className="mb-2">Your email: {user.primaryEmailAddress?.emailAddress || "Not provided"}</p>
       <p className="mb-2">Your mobile number: {user.primaryPhoneNumber?.phoneNumber || "Not provided"}</p>
       <p>Enjoy your stay!</p>
