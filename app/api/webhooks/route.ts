@@ -55,8 +55,7 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
+
 
   if (eventType === "user.created") {
     const { id, email_addresses } = evt.data;
@@ -68,12 +67,13 @@ export async function POST(req: Request) {
     try {
       await connect();
       await User.create(newUser);
+      console.log("user-added to mongo-server")
     } catch (error) {
 
     }
   }
-  console.log(`some ${id} and type of ${eventType}`)
-  console.log(`webhook body `, body)
+  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  console.log("Webhook body:", body);
 
   return new Response("", { status: 200 });
 }
