@@ -86,17 +86,10 @@ const Navbar = () => {
           <div className="hidden md:block">
             <SignedOut>
               <Link
-                href="/sign-in"
-                className="text-gray-700 hover:text-purple-600 transition duration-300 mr-4"
-              >
-                Sign in
-              </Link>
-
-              <Link
                 href="/sign-up"
-                className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition duration-300"
+                className="text-gray-700 border-purple-600 border px-6 py-1 rounded-full lg:border-2 hover:text-purple-600 transition duration-300 mr-4"
               >
-                Sign up
+                Register
               </Link>
             </SignedOut>
             <SignedIn>
@@ -131,28 +124,12 @@ const Navbar = () => {
           </nav>
           <div className="mt-4 space-y-2">
             <SignedOut>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                href="/welcome"
+                className="block text-center bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
               >
-                <Link
-                  href="/sign-in"
-                  className="block text-center bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
-                >
-                  Sign in
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href="/sign-up"
-                  className="block text-center bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition duration-300"
-                >
-                  Sign up
-                </Link>
-              </motion.div>
+                Register
+              </Link>
             </SignedOut>
             <SignedIn>
               <div className="flex justify-center">
