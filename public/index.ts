@@ -22,7 +22,7 @@ import payouticon from "./iconpng/payout.png";
 import fairplay from "./iconpng/fairplay.png";
 import stepbystep from "./iconpng/stepbystep.png";
 import confetti from "./iconpng/confetti.png";
-import herobg from "./main/herobg.png"
+import herobg from "./main/herobg.jpg"
 
 import phoneFooter from "./main/phone-footer.png"
 import emailFooter from "./main/email-footer.png"
