@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -25,13 +26,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${poppins.className}`}>
-
-        <div>
-        <Navbar/>
-        </div>
+          <div>
+            <Navbar />
+          </div>
           {children}
-          
-          </body>
+          <div>
+            <Footer/>
+          </div>
+        </body>
       </html>
     </ClerkProvider>
   );

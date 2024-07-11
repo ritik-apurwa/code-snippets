@@ -9,10 +9,25 @@ import linkedinsvg from "./websvgs/linkdin.svg";
 import twittersvg from "./websvgs/twitter.svg";
 import thumbsabb from "./websvgs/thumbsapp.svg";
 import penguin from "./websvgs/pengwin.svg";
-import bgsvg from "./websvgs/bg-svg.svg"
-import facebookwhitesvg from "./websvgs/facebookwhitesvg.svg"
-import instagramwhitesvg from "./websvgs/instagramwhitesvg.svg"
-import whatsappwhitesvg from "./websvgs/whatappwhitesvg.svg"
+import bgsvg from "./websvgs/bg-svg.svg";
+import facebookwhitesvg from "./websvgs/facebookwhitesvg.svg";
+import instagramwhitesvg from "./websvgs/instagramwhitesvg.svg";
+import whatsappwhitesvg from "./websvgs/whatappwhitesvg.svg";
+
+// png from flaticons
+
+import ticketiocn from "./iconpng/Ticket.png";
+import secureicon from "./iconpng/secure.png";
+import payouticon from "./iconpng/payout.png";
+import fairplay from "./iconpng/fairplay.png";
+import stepbystep from "./iconpng/stepbystep.png";
+import confetti from "./iconpng/confetti.png";
+import herobg from "./main/herobg.png"
+
+import phoneFooter from "./main/phone-footer.png"
+import emailFooter from "./main/email-footer.png"
+import locationFooter from "./main/location-footer.png"
+
 export {
   clocksvg,
   callsvg,
@@ -25,8 +40,18 @@ export {
   thumbsabb,
   twittersvg,
   whatsappsvg,
-  bgsvg, 
-  facebookwhitesvg, 
-  instagramwhitesvg, 
-  whatsappwhitesvg, 
+  bgsvg,
+  facebookwhitesvg,
+  instagramwhitesvg,
+  whatsappwhitesvg,
+  confetti,
+  fairplay,
+  payouticon,
+  secureicon,
+  stepbystep,
+  ticketiocn,
+  herobg, 
+  emailFooter, 
+  locationFooter, 
+  phoneFooter, 
 };
