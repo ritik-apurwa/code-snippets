@@ -2,16 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  penguin,
-  callsvg,
-  clocksvg,
-  emailsvg,
-  facebooksvg,
-  linkedinsvg,
-  whatsappsvg,
-  locationsvg,
-} from "@/public";
+import { penguin, locationsvg } from "@/public";
 
 export interface ContactInfo {
   icon: StaticImageData | string;
@@ -40,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const NewsLetter = () => {
     return (
-      <section className="w-screen flex justify-center py-2  bg-[#230548]">
+      <section className="w-screen flex justify-center py-2 h-10  items-center bg-[#230548]">
         <div className="max-w-7xl flex w-full justify-between items-center text-white">
           <div
             id="map_icon_and_address"
@@ -51,20 +42,20 @@ const Header: React.FC<HeaderProps> = ({
             </div>
 
             <div>
-              <p>{address}</p>
+              <p className="text-white text-xs lg:text-lg">{address}</p>
             </div>
           </div>
 
-          <div id="social_icons" className="flex space-x-4">
+          <div id="social_icons" className="flex  items-center space-x-4">
             {socialIcons.map(({ icon, title, id }) => (
-              <div key={id} className="size-10 overflow-hidden">
+              <div key={id} className=" overflow-hidden">
                 <Image
                   key={id}
                   src={icon}
                   alt={`social-icon-${title}`}
                   height={20}
                   width={10}
-                  className=" h-10 w-auto object-cover"
+                  className=" w-6  invert object-cover"
                 />
               </div>
             ))}
@@ -119,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className="bg-white border-2 rounded-l-full rounded-r-full  h-14 rounded-xl relative">
         <nav className="w-9/12">
           <ul className="flex flex-wrap justify-start gap-x-5 px-4 py-2">
-            {["HOME", "ABOUT US", "SERVICES"].map((item) => (
+            {["HOME", "ABOUT US", "SERVICES", "Contact-Us"].map((item) => (
               <li key={item}>
                 <Link
                   href={`/${item.toLowerCase().replace(" ", "-")}`}
@@ -150,13 +141,16 @@ const Header: React.FC<HeaderProps> = ({
             <Navigation />
           </div>
 
-          <div id="main_header" className=" w-full text-white min-h-40 px-4">
+          <div className="max-w-7xl mx-auto text-white">
             <h1 className="text-4xl font-bold pt-8">Home</h1>
-            <div className="bg-[#371C59] absolute w-full bottom-0 px-6 right-0 py-2 flex justify-end space-x-4">
-              <Link href="/" className="hover:text-[#EA580C]">
+
+            <div className="flex flex-row gap-x-2 items-center text-sm">
+              {/* <Link href="/" className="hover:text-[#EA580C]">
                 Home
               </Link>
-              <span>/</span>
+              <>
+                <ArrowRight size={15} className="text-sm" />
+              </> */}
               <Link href={pathname} className="hover:text-[#EA580C]">
                 {pathname.split("/").pop() || "Home"}
               </Link>

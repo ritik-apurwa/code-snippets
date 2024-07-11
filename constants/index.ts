@@ -1,5 +1,5 @@
 import { ContactInfo, SocialIcon } from "@/components/TempHeader";
-import { callsvg, clocksvg, emailsvg, facebooksvg, linkedinsvg, whatsappsvg } from "@/public";
+import { callsvg, clocksvg, emailsvg, facebooksvg, facebookwhitesvg, instagramwhitesvg, linkedinsvg, whatsappsvg, whatsappwhitesvg } from "@/public";
 
 export const address =
   "307, Fortune Aura, Above Nexa Showroom, Near Apple Hospital, Bhawarkua, Indore, India 452001";
@@ -18,16 +18,16 @@ export const socialIcons: SocialIcon[] = [
   {
     id: "facebook",
     title: "Facebook",
-    icon: facebooksvg,
+    icon: facebookwhitesvg,
   },
   {
     id: "whatsapp",
     title: "WhatsApp",
-    icon: whatsappsvg,
+    icon: whatsappwhitesvg,
   },
   {
-    id: "linkedin",
+    id: "instagram",
     title: "LinkedIn",
-    icon: linkedinsvg,
+    icon: instagramwhitesvg,
   },
 ];

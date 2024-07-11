@@ -10,6 +10,9 @@ import twittersvg from "./websvgs/twitter.svg";
 import thumbsabb from "./websvgs/thumbsapp.svg";
 import penguin from "./websvgs/pengwin.svg";
 import bgsvg from "./websvgs/bg-svg.svg"
+import facebookwhitesvg from "./websvgs/facebookwhitesvg.svg"
+import instagramwhitesvg from "./websvgs/instagramwhitesvg.svg"
+import whatsappwhitesvg from "./websvgs/whatappwhitesvg.svg"
 export {
   clocksvg,
   callsvg,
@@ -22,5 +25,8 @@ export {
   thumbsabb,
   twittersvg,
   whatsappsvg,
-  bgsvg
+  bgsvg, 
+  facebookwhitesvg, 
+  instagramwhitesvg, 
+  whatsappwhitesvg, 
 };
