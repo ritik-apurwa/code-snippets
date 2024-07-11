@@ -64,20 +64,18 @@ const HeroSection2 = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <motion.button
+            <Link
+              href="/welcome"
               className="bg-purple-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               Play Now
-            </motion.button>
-            <motion.button
+            </Link>
+            <Link
+              href="/about"
               className="bg-gray-300 text-gray-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               Learn More
-            </motion.button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
@@ -246,7 +244,6 @@ const FooterWithBg = () => {
       <div>first one here with atlest four links</div>
 
       <div>
-
         <div>
           <Image src={phoneFooter} alt="icon" height={30} width={30} />
           <p>
@@ -265,9 +262,6 @@ const FooterWithBg = () => {
             Address <br /> Lorem ipsum dolor sit amet.
           </p>
         </div>
-
-
-
       </div>
     </section>
   );

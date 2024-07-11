@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
@@ -162,7 +164,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div className="">
+    <div className="hidden lg:static">
       <NewsLetter />
       <LogoAndInfo />
       <PathCurrentPageAndNavigation />

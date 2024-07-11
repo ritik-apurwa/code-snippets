@@ -1,23 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Menu, X } from "lucide-react";
 import { penguin } from "@/public";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  });
 
   const navItems = ["HOME", "ABOUT US", "SERVICES", "Contact-Us"];
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-3">
+    <motion.header
+      className="fixed  top-0 left-0 right-0  bg-white shadow-md z-50"
+      initial={{ opacity: 0, y: -100 }}
+      animate={{
+        opacity: isVisible ? 1 : 0,
+        y: isVisible ? 0 : -100,
+      }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
+      <div className="container mx-auto px-4 py-1">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image
               src={penguin}
               alt="Jackpot Logo"
@@ -26,7 +45,7 @@ const Navbar = () => {
               className="mr-3"
             />
             <h1 className="text-2xl font-bold text-gray-800">Jackpot</h1>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
@@ -34,14 +53,18 @@ const Navbar = () => {
               <div className="bg-gray-100 rounded-full px-4 py-2">
                 <ul className="flex space-x-6">
                   {navItems.map((item) => (
-                    <li key={item}>
+                    <motion.li
+                      key={item}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <Link
                         href={`/${item.toLowerCase().replace(" ", "-")}`}
                         className="text-gray-700 hover:text-purple-600 transition duration-300"
                       >
                         {item}
                       </Link>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </div>
@@ -50,12 +73,13 @@ const Navbar = () => {
 
           {/* Mobile Navigation Toggle */}
           <div className="md:hidden">
-            <button
+            <motion.button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-700 hover:text-purple-600 transition duration-300"
+              whileTap={{ scale: 0.95 }}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            </motion.button>
           </div>
 
           {/* Authentication Buttons */}
@@ -67,6 +91,7 @@ const Navbar = () => {
               >
                 Sign in
               </Link>
+
               <Link
                 href="/sign-up"
                 className="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition duration-300"
@@ -81,47 +106,63 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className="md:hidden mt-4">
-            <nav className="bg-gray-100 rounded-lg p-4">
-              <ul className="space-y-2">
-                {navItems.map((item) => (
-                  <li key={item}>
-                    <Link
-                      href={`/${item.toLowerCase().replace(" ", "-")}`}
-                      className="text-gray-700 hover:text-purple-600 transition duration-300 block py-2"
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div className="mt-4 space-y-2">
-              <SignedOut>
+        <motion.div
+          className="md:hidden mt-4"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            height: isOpen ? "auto" : 0,
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          <nav className="bg-gray-100 rounded-lg p-4">
+            <ul className="space-y-2">
+              {navItems.map((item) => (
+                <motion.li key={item} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    href={`/${item.toLowerCase().replace(" ", "-")}`}
+                    className="text-gray-700 hover:text-purple-600 transition duration-300 block py-2"
+                  >
+                    {item}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+          </nav>
+          <div className="mt-4 space-y-2">
+            <SignedOut>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Link
                   href="/sign-in"
                   className="block text-center bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
                 >
                   Sign in
                 </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Link
                   href="/sign-up"
                   className="block text-center bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition duration-300"
                 >
                   Sign up
                 </Link>
-              </SignedOut>
-              <SignedIn>
-                <div className="flex justify-center">
-                
-                </div>
-              </SignedIn>
-            </div>
+              </motion.div>
+            </SignedOut>
+            <SignedIn>
+              <div className="flex justify-center">
+                <UserButton />
+              </div>
+            </SignedIn>
           </div>
-        )}
+        </motion.div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 

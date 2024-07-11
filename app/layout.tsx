@@ -4,6 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Header from "@/components/TempHeader";
+import { address, contactInfo, socialIcons } from "@/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -27,6 +29,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${poppins.className}`}>
           <div>
+            <Header address={address} contactInfo={contactInfo} socialIcons={socialIcons}/>
             <Navbar />
           </div>
           {children}
