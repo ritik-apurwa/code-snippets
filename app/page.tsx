@@ -68,7 +68,7 @@ const HeroSection2 = () => {
               href="/welcome"
               className="bg-purple-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105"
             >
-              Play Now
+              Play Now devendra ate click kr 
             </Link>
             <Link
               href="/about"

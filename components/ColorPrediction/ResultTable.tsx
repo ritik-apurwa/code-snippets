@@ -17,7 +17,12 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -27,15 +32,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 
 // Interface for the results
 export interface Result {
@@ -71,80 +67,68 @@ const columns: ColumnDef<Result>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "id",
+    header: "Id",
+    cell: ({ row }) => (
+      <div className="capitalize text-xs">{row.getValue("id")}</div>
+    ),
+  },
+  {
     accessorKey: "randomColor",
     header: "Color",
     cell: ({ row }) => (
-      <div
-        className="flex justify-center"
-        style={{
-          backgroundColor: row.getValue("randomColor") === "red" ? "#FF0000" : row.getValue("randomColor") === "green" ? "#008000" : "#FFFFFF",
-          width: "10px",
-          height: "10px",
-          borderRadius: "50%",
-        }}
-      />
+      <div className="capitalize ">{row.getValue("randomColor")}</div>
     ),
   },
   {
     accessorKey: "randomNumber",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Random Number
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div>{row.getValue("randomNumber")}</div>,
+    header: "Number",
+
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("randomNumber")}</div>
+    ),
   },
+
   {
     accessorKey: "randomSize",
-    header: "Random Size",
+    header: "Size",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("randomSize")}</div>
     ),
-  },
-  {
-    accessorKey: "givenNumber",
-    header: "Given Number",
-    cell: ({ row }) => <div>{row.getValue("givenNumber")}</div>,
   },
   {
     accessorKey: "timestamp",
     header: "Timestamp",
     cell: ({ row }) => <div>{row.getValue("timestamp")}</div>,
   },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const result = row.original;
+  //   {
+  //     id: "actions",
+  //     enableHiding: false,
+  //     cell: ({ row }) => {
+  //       const result = row.original;
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(result.id)}
-            >
-              Copy result ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View result details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
+  //       return (
+  //         <DropdownMenu>
+  //           <DropdownMenuTrigger asChild>
+  //             <Button variant="ghost" className="h-8 w-8 p-0">
+  //               <span className="sr-only">Open menu</span>
+  //               <MoreHorizontal className="h-4 w-4" />
+  //             </Button>
+  //           </DropdownMenuTrigger>
+  //           <DropdownMenuContent align="end">
+  //             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+  //             <DropdownMenuItem
+  //               onClick={() => navigator.clipboard.writeText(result.id)}
+  //             >
+  //               Copy result ID
+  //             </DropdownMenuItem>
+  //             <DropdownMenuSeparator />
+  //             <DropdownMenuItem>View result details</DropdownMenuItem>
+  //           </DropdownMenuContent>
+  //         </DropdownMenu>
+  //       );
+  //     },
+  //   },
 ];
 
 interface ResultsTableProps {
@@ -190,7 +174,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
           onChange={(event) =>
             table.getColumn("randomColor")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="lg:max-w-sm max-w-52"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -208,7 +192,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
-                    onCheckedChange={(value: any) =>
+                    onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
                     }
                   >

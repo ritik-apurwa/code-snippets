@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { ResultsTable } from "./ResultTable";
@@ -14,42 +14,75 @@ export default function ColorGame() {
     handleGivenNumberChange,
     currentGame,
     remainingTime,
+    breakTime,
   } = useRandomValues();
 
   const [userBet, setUserBet] = useState({ color: "", number: 0, size: "" });
   const [betResult, setBetResult] = useState("");
   const [previousNumber, setPreviousNumber] = useState(0);
+  const [betChecked, setBetChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false); // State to control when to show results
 
   useEffect(() => {
     if (currentGame) {
       setPreviousNumber(currentGame.randomNumber);
+      setBetChecked(false);
+      setUserBet({ color: "", number: 0, size: "" });
+      setBetResult("");
+      setShowResult(false); // Reset showResult state
     }
   }, [currentGame]);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout | undefined;
+
+    if (remainingTime === 0 && !betChecked) {
+      timeout = setTimeout(() => {
+        setShowResult(true);
+      }, 5000); // Show results for 5 seconds when remainingTime reaches 0
+    } else {
+      setShowResult(false);
+    }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [remainingTime, betChecked]);
 
   const placeBet = (
     type: "color" | "number" | "size",
     value: string | number
   ) => {
-    setUserBet({ ...userBet, [type]: value });
+    if (!betChecked) {
+      setUserBet({ ...userBet, [type]: value });
+    }
   };
 
   const checkBet = () => {
-    if (!currentGame) return;
+    if (!currentGame || betChecked) return;
 
-    let result = [];
-    if (userBet.color && userBet.color === currentGame.randomColor) {
-      result.push("Color matched!");
-    }
-    if (userBet.number && userBet.number === currentGame.randomNumber) {
-      result.push("Number matched!");
-    }
-    if (userBet.size && userBet.size === currentGame.randomSize) {
-      result.push("Size matched!");
-    }
-    if (result.length === 0) {
-      result.push("No match. Better luck next time!");
-    }
-    setBetResult(result.join(" "));
+    setLoading(true);
+    setTimeout(() => {
+      let result = [];
+      if (userBet.color && userBet.color === currentGame.randomColor) {
+        result.push("Color matched!");
+      }
+      if (userBet.number && userBet.number === currentGame.randomNumber) {
+        result.push("Number matched!");
+      }
+      if (userBet.size && userBet.size === currentGame.randomSize) {
+        result.push("Size matched!");
+      }
+      if (result.length === 0) {
+        result.push("No match. Better luck next time!");
+      }
+      setBetResult(result.join(" "));
+      setBetChecked(true);
+      setLoading(false);
+    }, 1000); // simulate loading time
   };
 
   const BetControls = () => {
@@ -72,6 +105,7 @@ export default function ColorGame() {
                         ? "bg-blue-500 text-white"
                         : "bg-white hover:bg-blue-100"
                     } transition duration-200`}
+                    disabled={betChecked}
                   >
                     {color}
                   </button>
@@ -80,7 +114,7 @@ export default function ColorGame() {
             </div>
             <div>
               <h3 className="font-semibold mb-2">Number</h3>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-6 gap-2">
                 {numberOptions.map((number) => (
                   <button
                     key={number}
@@ -90,6 +124,7 @@ export default function ColorGame() {
                         ? "bg-blue-500 text-white"
                         : "bg-white hover:bg-blue-100"
                     } transition duration-200`}
+                    disabled={betChecked}
                   >
                     {number}
                   </button>
@@ -108,6 +143,7 @@ export default function ColorGame() {
                         ? "bg-blue-500 text-white"
                         : "bg-white hover:bg-blue-100"
                     } transition duration-200`}
+                    disabled={betChecked}
                   >
                     {size}
                   </button>
@@ -120,42 +156,47 @@ export default function ColorGame() {
     );
   };
 
-  const CurrentGameResult = () => {
-    return (
-      <div>
-        {currentGame && (
-          <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-3">
-              <div className="flex w-full justify-center">Color</div>
-              <div className="flex w-full justify-center">Number</div>
-              <div className="flex w-full justify-center">Size</div>
-            </div>
-            <div className="grid grid-cols-3">
-              <div className="flex w-full justify-center">
-                {currentGame.randomColor}
-              </div>
-              <div className="flex w-full justify-center">
-                {currentGame.randomNumber}
-              </div>
-              <div className="flex w-full justify-center">
-                {currentGame.randomSize}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
   const BetResults = () => {
+    const hasSelectedBet = userBet.color || userBet.number || userBet.size;
+
     return (
-      <section>
-        {betResult && (
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h2 className="text-xl font-bold mb-2 text-blue-700">
-              Bet Result:
-            </h2>
-            <p className="text-lg">{betResult}</p>
+      <section className="w-full flex flex-col justify-center">
+        <button
+          onClick={checkBet}
+          className={`border-2 border-indigo-600 py-3 px-5 rounded-md capitalize ${
+            hasSelectedBet
+              ? "bg-indigo-600 text-white hover:bg-indigo-700"
+              : "bg-gray-200 text-gray-500 cursor-not-allowed"
+          }`}
+          disabled={!hasSelectedBet || betChecked || loading}
+        >
+          {loading ? (
+            <span className="animate-spin">🔄</span>
+          ) : betChecked ? (
+            remainingTime > 0 ? (
+              `Wait ${remainingTime} seconds for results `
+            ) : (
+              `Next Game in ${breakTime} seconds`
+            )
+          ) : (
+            "Set Bet"
+          )}
+        </button>
+
+        {showResult && betResult && (
+          <div className="ml-4">
+            <div className="bg-blue-50 p-4 rounded-lg mt-4">
+              <h2 className="text-xl font-bold mb-2 text-blue-700">
+                Bet Result:
+              </h2>
+              <p className="text-lg">{betResult}</p>
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold">Your Selection:</h3>
+                {userBet.color && <p>Color: {userBet.color}</p>}
+                {userBet.number && <p>Number: {userBet.number}</p>}
+                {userBet.size && <p>Size: {userBet.size}</p>}
+              </div>
+            </div>
           </div>
         )}
       </section>
@@ -168,20 +209,8 @@ export default function ColorGame() {
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">
           Color Number Game
         </h1>
-
         <BetControls />
-        <CurrentGameResult />
-        {remainingTime}
-        <div className="text-center">
-          <button
-            onClick={checkBet}
-            className="px-6 py-3 bg-green-500 text-white rounded-full font-bold hover:bg-green-600 transition duration-200"
-          >
-            Check Bet
-          </button>
-        </div>
-
-        {betResult && <BetResults />}
+        <BetResults />
       </div>
 
       <div className="w-full max-w-6xl mt-8">
