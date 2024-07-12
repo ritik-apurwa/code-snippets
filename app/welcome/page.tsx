@@ -2,6 +2,7 @@
 import Header from "@/components/TempHeader";
 import { address, contactInfo, socialIcons } from "@/constants";
 import { UserInfo } from "@/components/UserInfo";
+import GameColor from "@/components/GameColor";
 
 const WelcomePage = () => {
   return (
