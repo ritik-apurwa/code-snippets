@@ -206,6 +206,14 @@ export default function ColorGame() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
       <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+        <div className="flex justify-end my-2">
+          {remainingTime === 30 ? (
+            <div> break time {breakTime}</div>
+          ) : (
+            <div> Remaining Time {remainingTime}</div>
+          )}
+        </div>
+
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">
           Color Number Game
         </h1>

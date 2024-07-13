@@ -139,7 +139,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:block">
+          <nav className="hidden lg:block">
             <div className="relative">
               <div className="bg-gray-100 rounded-full px-4 py-2">
                 <ul className="flex space-x-6">
@@ -189,7 +189,11 @@ const Navbar = () => {
           </div>
         </div>
 
-        <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />
+      {isOpen && (
+        <div>
+            <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />
+        </div>
+      )}
       </div>
     </motion.header>
   );
